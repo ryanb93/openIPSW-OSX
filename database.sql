@@ -7,7 +7,7 @@
 #
 # Host: readonlyipsw.db.6730814.hostedresource.com (MySQL 5.0.92-log)
 # Database: readonlyipsw
-# Generation Time: 2012-03-01 16:15:14 +0000
+# Generation Time: 2012-03-21 22:48:43 +0000
 # ************************************************************
 
 
@@ -37,10 +37,15 @@ LOCK TABLES `0_devices` WRITE;
 INSERT INTO `0_devices` (`device_name`, `device_table`)
 VALUES
 	('Apple TV','appletv'),
+	('Apple TV 3G','appletv3g'),
 	('iPad','ipad1'),
 	('iPad 2 (CDMA)','ipad2_cdma'),
 	('iPad 2 (GSM)','ipad2_gsm'),
 	('iPad 2 (WiFi)','ipad2_wifi'),
+	('iPad 2 (WiFi) (K93aap)','ipad2_wifi2'),
+	('iPad 3 (CDMA)','ipad3_cdma'),
+	('iPad 3 (Global)','ipad3_global'),
+	('iPad 3 (WiFi)','ipad3_wifi'),
 	('iPhone 2G','iphone2g'),
 	('iPhone 3G','iphone3g'),
 	('iPhone 3GS','iphone3gs'),
@@ -78,23 +83,63 @@ CREATE TABLE `appletv` (
   `tethered` varchar(50) NOT NULL,
   `shsh` varchar(50) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 LOCK TABLES `appletv` WRITE;
 /*!40000 ALTER TABLE `appletv` DISABLE KEYS */;
 
 INSERT INTO `appletv` (`id`, `version`, `build`, `url`, `name`, `can_jailbreak`, `can_unlock`, `baseband`, `size`, `tool`, `tool_url`, `unlock_tool`, `unlock_url`, `tethered`, `shsh`)
 VALUES
-	(1,'4.1 (4.0)','8M89','http://appldnld.apple.com/AppleTV/061-8940.20100926.Tvtnz/AppleTV2,1_4.1_8M89_Restore.ipsw','AppleTV2,1_4.1_8M89_Restore.ipsw','Yes','No','','253,759,976','PwnageTool 4.3.1','http://blog.iphone-dev.org/','','','No','No'),
-	(2,'4.2 (4.1)','8C150','http://appldnld.apple.com/AppleTV/061-8747.20101122.Vgtr5/AppleTV2,1_4.2_8C150_Restore.ipsw','AppleTV2,1_4.2_8C150_Restore.ipsw','No','No','','279,991,056','','','','','No','No'),
-	(3,'4.2.1 (4.1.1)','8C154','http://appldnld.apple.com/AppleTV/061-9978.20101214.gmabr/AppleTV2,1_4.2.1_8C154_Restore.ipsw','AppleTV2,1_4.2.1_8C154_Restore.ipsw','Yes','No','','280,052,510','Greenpois0n RC6.1','http://greenpois0n.com/downloads/','','','No','No'),
-	(4,'4.3 (4.2)','8F191m','http://appldnld.apple.com/AppleTV/061-9584.20110308.Cxdew/AppleTV2,1_4.3_8F191m_Restore.ipsw','AppleTV2,1_4.3_8F191m_Restore.ipsw','No','No','','332,470,394','','','','','No','No'),
-	(5,'4.3 (4.2.1)','8F202','http://appldnld.apple.com/AppleTV/041-0574.20110322.Dcfr5/AppleTV2,1_4.3_8F202_Restore.ipsw','AppleTV2,1_4.3_8F202_Restore.ipsw','Yes','No','','334,284,882','redsn0w 0.9.6 rc16','http://blog.iphone-dev.org/','','','No','No'),
-	(6,'4.3 (4.2.2)','8F305','http://appldnld.apple.com/AppleTV/041-0596.20110511.Zz7mC/AppleTV2,1_4.3_8F305_Restore.ipsw','AppleTV2,1_4.3_8F305_Restore.ipsw','Yes','No','','334,235,633','Sn0wbreeze 2.7.2','http://ih8sn0w.com','','','No','No'),
-	(7,'5.0 (4.4)','9A334v','http://appldnld.apple.com/AppleTV/061-9621.20111012.Vgijx/AppleTV2,1_4.4_9A334v_Restore.ipsw','AppleTV2,1_4.4_9A334v_Restore.ipsw','Yes','No','','395,310,614','','','','','No','No'),
-	(8,'5.0 (4.4.2)','9A336a','http://appldnld.apple.com/AppleTV/041-2995.20111024.Tfscw/AppleTV2,1_4.4.2_9A336a_Restore.ipsw','AppleTV2,1_4.4.2_9A336a_Restore.ipsw','No','No','','395,330,948','Sn0wbreeze','http://ih8sn0w.com','','','Yes','Yes');
+	(1,'4.1 (4.0)','8M89','http://appldnld.apple.com/AppleTV/061-8940.20100926.Tvtnz/AppleTV2,1_4.1_8M89_Restore.ipsw','AppleTV2,1_4.1_8M89_Restore.ipsw','Yes','','','253,759,976','PwnageTool 4.3.1','http://blog.iphone-dev.org/','','','No','No'),
+	(2,'4.2 (4.1)','8C150','http://appldnld.apple.com/AppleTV/061-8747.20101122.Vgtr5/AppleTV2,1_4.2_8C150_Restore.ipsw','AppleTV2,1_4.2_8C150_Restore.ipsw','No','','','279,991,056','','','','','No','No'),
+	(3,'4.2.1 (4.1.1)','8C154','http://appldnld.apple.com/AppleTV/061-9978.20101214.gmabr/AppleTV2,1_4.2.1_8C154_Restore.ipsw','AppleTV2,1_4.2.1_8C154_Restore.ipsw','Yes','','','280,052,510','Greenpois0n RC6.1','http://greenpois0n.com/downloads/','','','No','No'),
+	(4,'4.3 (4.2)','8F191m','http://appldnld.apple.com/AppleTV/061-9584.20110308.Cxdew/AppleTV2,1_4.3_8F191m_Restore.ipsw','AppleTV2,1_4.3_8F191m_Restore.ipsw','No','','','332,470,394','','','','','No','No'),
+	(5,'4.3 (4.2.1)','8F202','http://appldnld.apple.com/AppleTV/041-0574.20110322.Dcfr5/AppleTV2,1_4.3_8F202_Restore.ipsw','AppleTV2,1_4.3_8F202_Restore.ipsw','Yes','','','334,284,882','redsn0w 0.9.6 rc16','http://blog.iphone-dev.org/','','','No','No'),
+	(6,'4.3 (4.2.2)','8F305','http://appldnld.apple.com/AppleTV/041-0596.20110511.Zz7mC/AppleTV2,1_4.3_8F305_Restore.ipsw','AppleTV2,1_4.3_8F305_Restore.ipsw','Yes','','','334,235,633','Sn0wbreeze 2.7.2','http://ih8sn0w.com','','','No','No'),
+	(7,'4.3','8F455','http://appldnld.apple.com/AppleTV/041-0895.20110728.TcF4T/AppleTV2,1_4.3_8F455_Restore.ipsw','AppleTV2,1_4.3_8F455_Restore.ipsw','Yes','','','335,297,625','Seas0nPass','http://seas0npass.com/','','','No','No'),
+	(8,'5.0 (4.4)','9A334v','http://appldnld.apple.com/AppleTV/061-9621.20111012.Vgijx/AppleTV2,1_4.4_9A334v_Restore.ipsw','AppleTV2,1_4.4_9A334v_Restore.ipsw','Yes','','','395,310,614','Seas0nPass','http://seas0npass.com/','','','No','No'),
+	(9,'5.0 (4.4.1)','9A335a','http://appldnld.apple.com/AppleTV/041-2846.20111017.34NPe/AppleTV2,1_4.4.1_9A335a_Restore.ipsw','AppleTV2,1_4.4.1_9A335a_Restore.ipsw','Yes','','','395,371,402','Seas0nPass','http://seas0npass.com/','','','Yes','No'),
+	(10,'5.0 (4.4.2)','9A336a','http://appldnld.apple.com/AppleTV/041-2995.20111024.Tfscw/AppleTV2,1_4.4.2_9A336a_Restore.ipsw','AppleTV2,1_4.4.2_9A336a_Restore.ipsw','No','','','395,330,948','Sn0wbreeze','http://ih8sn0w.com','','','Yes','No'),
+	(11,'5.0.1 (4.4.3)','9A405l','http://appldnld.apple.com/AppleTV/041-3117.20111117.Gj79d/AppleTV2,1_4.4.3_9A405l_Restore.ipsw','AppleTV2,1_4.4.3_9A405l_Restore.ipsw','Yes','','','396,258,190','Seas0nPass','http://seas0npass.com/','','','Yes','No'),
+	(12,'5.0.1 (4.4.4)','9A406a','http://appldnld.apple.com/AppleTV/041-3539.20111215.EQTW8/AppleTV2,1_4.4.4_9A406a_Restore.ipsw','AppleTV2,1_4.4.4_9A406a_Restore.ipsw','Yes','','','396,277,727','Seas0nPass','http://seas0npass.com/','','','No','No'),
+	(13,'5.1 (5.0)','9B179b','http://appldnld.apple.com/AppleTV/041-1538.20120307.Ve5H3/AppleTV2,1_5.0_9B179b_Restore.ipsw','AppleTV2,1_5.0_9B179b_Restore.ipsw','No','','','511,005,832','','','','','No','Yes');
 
 /*!40000 ALTER TABLE `appletv` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table appletv3g
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `appletv3g`;
+
+CREATE TABLE `appletv3g` (
+  `id` int(255) NOT NULL auto_increment,
+  `version` varchar(50) NOT NULL,
+  `build` varchar(50) NOT NULL,
+  `url` varchar(500) NOT NULL default '',
+  `name` varchar(500) NOT NULL,
+  `can_jailbreak` varchar(10) NOT NULL,
+  `can_unlock` varchar(10) NOT NULL,
+  `baseband` varchar(50) NOT NULL,
+  `size` varchar(50) NOT NULL,
+  `tool` varchar(50) NOT NULL,
+  `tool_url` varchar(500) NOT NULL default '',
+  `unlock_tool` varchar(50) NOT NULL,
+  `unlock_url` varchar(500) NOT NULL default '',
+  `tethered` varchar(50) NOT NULL,
+  `shsh` varchar(50) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+
+LOCK TABLES `appletv3g` WRITE;
+/*!40000 ALTER TABLE `appletv3g` DISABLE KEYS */;
+
+INSERT INTO `appletv3g` (`id`, `version`, `build`, `url`, `name`, `can_jailbreak`, `can_unlock`, `baseband`, `size`, `tool`, `tool_url`, `unlock_tool`, `unlock_url`, `tethered`, `shsh`)
+VALUES
+	(1,'5.1 (5.0)','9B179b','http://appldnld.apple.com/AppleTV/041-2855.20120307.SD8A4/AppleTV3,1_5.0_9B179b_Restore.ipsw','AppleTV3,1_5.0_9B179b_Restore.ipsw','No','','','566,043,326','','','','','No','Yes');
+
+/*!40000 ALTER TABLE `appletv3g` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
@@ -120,7 +165,7 @@ CREATE TABLE `ipad1` (
   `tethered` varchar(50) NOT NULL,
   `shsh` varchar(50) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 LOCK TABLES `ipad1` WRITE;
 /*!40000 ALTER TABLE `ipad1` DISABLE KEYS */;
@@ -137,7 +182,8 @@ VALUES
 	(8,'4.3.3','8J3','http://appldnld.apple.com/iPhone4/041-1010.20110503.ScEp3/iPad1,1_4.3.3_8J3_Restore.ipsw','iPad1,1_4.3.3_8J3_Restore.ipsw','Yes','Yes','07.11.01','622,048,364','JailbreakMe 3.0','http://jailbreakme.com','Pre-unlocked','','No','No'),
 	(9,'4.3.4','8K2','http://appldnld.apple.com/iPhone4/041-1913.20110715.cvTyu/iPad1,1_4.3.4_8K2_Restore.ipsw','iPad1,1_4.3.4_8K2_Restore.ipsw','Yes','Yes','07.11.01','622,279,895 ','redsn0w','http://blog.iphone-dev.org','Pre-unlocked','','No','No'),
 	(10,'5.0','9A334','http://appldnld.apple.com/iPhone4/041-8357.20111012.DTOrM/iPad1,1_5.0_9A334_Restore.ipsw','iPad1,1_5.0_9A334_Restore.ipsw','Yes','Yes','07.11.01','734,262,118','redsn0w','http://blog.iphone-dev.org','Pre-unlocked','','Yes','No'),
-	(11,'5.0.1','9A405','http://appldnld.apple.com/iPhone4/041-3308.20111109.Fvgtr/iPad1,1_5.0.1_9A405_Restore.ipsw','iPad1,1_5.0.1_9A405_Restore.ipsw','Yes','Yes','07.11.01','751,358,387','redsn0w','http://blog.iphone-dev.org','Pre-unlocked','','Yes','Yes');
+	(11,'5.0.1','9A405','http://appldnld.apple.com/iPhone4/041-3308.20111109.Fvgtr/iPad1,1_5.0.1_9A405_Restore.ipsw','iPad1,1_5.0.1_9A405_Restore.ipsw','Yes','Yes','07.11.01','751,358,387','redsn0w','http://blog.iphone-dev.org','Pre-unlocked','','Yes','No'),
+	(12,'5.1','9B176','http://appldnld.apple.com/iOS5/041-1536.20120307.XvCtw/iPad1,1_5.1_9B176_Restore.ipsw','iPad1,1_5.1_9B176_Restore.ipsw','Yes','Yes','07.11.01','761,232,912','redsn0w','http://blog.iphone-dev.org','Pre-unlocked','','Yes','Yes');
 
 /*!40000 ALTER TABLE `ipad1` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -165,19 +211,20 @@ CREATE TABLE `ipad2_cdma` (
   `tethered` varchar(50) NOT NULL,
   `shsh` varchar(50) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 LOCK TABLES `ipad2_cdma` WRITE;
 /*!40000 ALTER TABLE `ipad2_cdma` DISABLE KEYS */;
 
 INSERT INTO `ipad2_cdma` (`id`, `version`, `build`, `url`, `name`, `can_jailbreak`, `can_unlock`, `baseband`, `size`, `tool`, `tool_url`, `unlock_tool`, `unlock_url`, `tethered`, `shsh`)
 VALUES
-	(1,'4.3','8F191','http://appldnld.apple.com/iPhone4/041-0334.20110311Plgt5/iPad2,3_4.3_8F191_Restore.ipsw','iPad2,3_4.3_8F191_Restore.ipsw','No','No','2.0.4','656,018,665','','','','','','No'),
-	(2,'4.3.1','8G4','http://appldnld.apple.com/iPhone4/041-0544.20110325.Dew3r/iPad2,3_4.3.1_8G4_Restore.ipsw','iPad2,3_4.3.1_8G4_Restore.ipsw','No','No','2.0.4','650,897,625','','','','','','No'),
-	(3,'4.3.2','8H7','http://appldnld.apple.com/iPhone4/041-0665.20110414.MbwVr/iPad2,3_4.3.2_8H8_Restore.ipsw','iPad2,3_4.3.2_8H8_Restore.ipsw','No','No','2.0.4','651,222,830','','','','','','No'),
-	(4,'4.3.3','8J2','http://appldnld.apple.com/iPhone4/041-1014.20110503.52dap/iPad2,3_4.3.3_8J2_Restore.ipsw','iPad2,3_4.3.3_8J2_Restore.ipsw','Yes','No','2.0.4','651,189,996','JailbreakMe 3.0','http://jailbreakme.com','','','','No'),
-	(5,'5.0','9A334','http://appldnld.apple.com/iPhone4/041-9620.20111012.pnB4r/iPad2,3_5.0_9A334_Restore.ipsw','iPad2,3_5.0_9A334_Restore.ipsw','No','No','3.0.03','756,356,953','','','','','','No'),
-	(6,'5.0.1','9A405','http://appldnld.apple.com/iPhone4/041-3312.20111109.zp3ws/iPad2,3_5.0.1_9A405_Restore.ipsw','iPad2,3_5.0.1_9A405_Restore.ipsw','Yes','No','3.0.03','773,224,632','Absinthe 0.4','http://greenpois0n.com','','','','Yes');
+	(1,'4.3','8F191','http://appldnld.apple.com/iPhone4/041-0334.20110311Plgt5/iPad2,3_4.3_8F191_Restore.ipsw','iPad2,3_4.3_8F191_Restore.ipsw','No','No','2.0.4','656,018,665','','','','','No','No'),
+	(2,'4.3.1','8G4','http://appldnld.apple.com/iPhone4/041-0544.20110325.Dew3r/iPad2,3_4.3.1_8G4_Restore.ipsw','iPad2,3_4.3.1_8G4_Restore.ipsw','No','No','2.0.4','650,897,625','','','','','No','No'),
+	(3,'4.3.2','8H7','http://appldnld.apple.com/iPhone4/041-0665.20110414.MbwVr/iPad2,3_4.3.2_8H8_Restore.ipsw','iPad2,3_4.3.2_8H8_Restore.ipsw','No','No','2.0.4','651,222,830','','','','','No','No'),
+	(4,'4.3.3','8J2','http://appldnld.apple.com/iPhone4/041-1014.20110503.52dap/iPad2,3_4.3.3_8J2_Restore.ipsw','iPad2,3_4.3.3_8J2_Restore.ipsw','Yes','No','2.0.4','651,189,996','JailbreakMe 3.0','http://jailbreakme.com','','','No','No'),
+	(5,'5.0','9A334','http://appldnld.apple.com/iPhone4/041-9620.20111012.pnB4r/iPad2,3_5.0_9A334_Restore.ipsw','iPad2,3_5.0_9A334_Restore.ipsw','No','No','3.0.03','756,356,953','','','','','No','No'),
+	(6,'5.0.1','9A405','http://appldnld.apple.com/iPhone4/041-3312.20111109.zp3ws/iPad2,3_5.0.1_9A405_Restore.ipsw','iPad2,3_5.0.1_9A405_Restore.ipsw','Yes','No','3.0.03','773,224,632','Absinthe 0.4','http://greenpois0n.com','','','No','No'),
+	(7,'5.1','9B176','http://appldnld.apple.com/iOS5/041-1541.20120307.WrbS2/iPad2,3_5.1_9B176_Restore.ipsw','iPad2,3_5.1_9B176_Restore.ipsw','No','No','3.0.04','778,891,778','','','','','No','Yes');
 
 /*!40000 ALTER TABLE `ipad2_cdma` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -205,19 +252,20 @@ CREATE TABLE `ipad2_gsm` (
   `tethered` varchar(50) NOT NULL,
   `shsh` varchar(50) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 LOCK TABLES `ipad2_gsm` WRITE;
 /*!40000 ALTER TABLE `ipad2_gsm` DISABLE KEYS */;
 
 INSERT INTO `ipad2_gsm` (`id`, `version`, `build`, `url`, `name`, `can_jailbreak`, `can_unlock`, `baseband`, `size`, `tool`, `tool_url`, `unlock_tool`, `unlock_url`, `tethered`, `shsh`)
 VALUES
-	(1,'4.3','8F191','http://appldnld.apple.com/iPhone4/041-0369.20110311.Xzsew/iPad2,2_4.3_8F191_Restore.ipsw','iPad2,2_4.3_8F191_Restore.ipsw','No','No','4.10.01','649,374,499','','','','','','No'),
-	(2,'4.3.1','8G4','http://appldnld.apple.com/iPhone4/041-0557.20110325.Jy76y/iPad2,2_4.3.1_8G4_Restore.ipsw','iPad2,2_4.3.1_8G4_Restore.ipsw','No','No','4.10.01','644,359,977','','','','','','No'),
-	(3,'4.3.2','8H7','http://appldnld.apple.com/iPhone4/041-0664.20110414.39vUS/iPad2,2_4.3.2_8H7_Restore.ipsw','iPad2,2_4.3.2_8H7_Restore.ipsw','No','No','4.10.01','644,615,497','','','','','','No'),
-	(4,'4.3.3','8J2','http://appldnld.apple.com/iPhone4/041-1013.20110503.1m73D/iPad2,2_4.3.3_8J2_Restore.ipsw','iPad2,2_4.3.3_8J2_Restore.ipsw','Yes','No','4.10.01','644,652,310','JailbreakMe 3.0','http://jailbreakme.com','','','','No'),
-	(5,'5.0','9A334','http://appldnld.apple.com/iPhone4/041-9619.20111012.y34Nx/iPad2,2_5.0_9A334_Restore.ipsw','iPad2,2_5.0_9A334_Restore.ipsw','No','No','4.11.08','750,839,256','','','','','','No'),
-	(6,'5.0.1','9A405','http://appldnld.apple.com/iPhone4/041-3311.20111109.Vpr43/iPad2,2_5.0.1_9A405_Restore.ipsw','iPad2,2_5.0.1_9A405_Restore.ipsw','Yes','No','4.11.08','767,568,362','Absinthe 0.4','http://greenpois0n.com','','','No','Yes');
+	(1,'4.3','8F191','http://appldnld.apple.com/iPhone4/041-0369.20110311.Xzsew/iPad2,2_4.3_8F191_Restore.ipsw','iPad2,2_4.3_8F191_Restore.ipsw','No','No','4.10.01','649,374,499','','','','','No','No'),
+	(2,'4.3.1','8G4','http://appldnld.apple.com/iPhone4/041-0557.20110325.Jy76y/iPad2,2_4.3.1_8G4_Restore.ipsw','iPad2,2_4.3.1_8G4_Restore.ipsw','No','No','4.10.01','644,359,977','','','','','No','No'),
+	(3,'4.3.2','8H7','http://appldnld.apple.com/iPhone4/041-0664.20110414.39vUS/iPad2,2_4.3.2_8H7_Restore.ipsw','iPad2,2_4.3.2_8H7_Restore.ipsw','No','No','4.10.01','644,615,497','','','','','No','No'),
+	(4,'4.3.3','8J2','http://appldnld.apple.com/iPhone4/041-1013.20110503.1m73D/iPad2,2_4.3.3_8J2_Restore.ipsw','iPad2,2_4.3.3_8J2_Restore.ipsw','Yes','No','4.10.01','644,652,310','JailbreakMe 3.0','http://jailbreakme.com','','','No','No'),
+	(5,'5.0','9A334','http://appldnld.apple.com/iPhone4/041-9619.20111012.y34Nx/iPad2,2_5.0_9A334_Restore.ipsw','iPad2,2_5.0_9A334_Restore.ipsw','No','No','4.11.08','750,839,256','','','','','No','No'),
+	(6,'5.0.1','9A405','http://appldnld.apple.com/iPhone4/041-3311.20111109.Vpr43/iPad2,2_5.0.1_9A405_Restore.ipsw','iPad2,2_5.0.1_9A405_Restore.ipsw','Yes','No','4.11.08','767,568,362','Absinthe 0.4','http://greenpois0n.com','','','No','No'),
+	(7,'5.1','9B176','http://appldnld.apple.com/iOS5/041-1540.20120307.tw0go/iPad2,2_5.1_9B176_Restore.ipsw','iPad2,2_5.1_9B176_Restore.ipsw','No','No','04.12.01','773,288,354','','','','','No','Yes');
 
 /*!40000 ALTER TABLE `ipad2_gsm` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -245,21 +293,162 @@ CREATE TABLE `ipad2_wifi` (
   `tethered` varchar(50) NOT NULL,
   `shsh` varchar(50) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 LOCK TABLES `ipad2_wifi` WRITE;
 /*!40000 ALTER TABLE `ipad2_wifi` DISABLE KEYS */;
 
 INSERT INTO `ipad2_wifi` (`id`, `version`, `build`, `url`, `name`, `can_jailbreak`, `can_unlock`, `baseband`, `size`, `tool`, `tool_url`, `unlock_tool`, `unlock_url`, `tethered`, `shsh`)
 VALUES
-	(1,'4.3','8F191','http://appldnld.apple.com/iPhone4/041-0368.20110311.SwtHr/iPad2,1_4.3_8F191_Restore.ipsw','iPad2,1_4.3_8F191_Restore.ipsw','No','','','641,816,040','','','','','','No'),
-	(2,'4.3.1','8G4','http://appldnld.apple.com/iPhone4/041-0556.20110325.64rfg/iPad2,1_4.3.1_8G4_Restore.ipsw','iPad2,1_4.3.1_8G4_Restore.ipsw','No','','','636,932,640','','','','','','No'),
-	(3,'4.3.2','8H7','http://appldnld.apple.com/iPhone4/041-0663.20110414.U7bTI/iPad2,1_4.3.2_8H7_Restore.ipsw','iPad2,1_4.3.2_8H7_Restore.ipsw','No','','','637,204,510','','','','','','No'),
-	(4,'4.3.3','8J2','http://appldnld.apple.com/iPhone4/041-1012.20110503.tmmBc/iPad2,1_4.3.3_8J2_Restore.ipsw','iPad2,1_4.3.3_8J2_Restore.ipsw','Yes','','','637,183,974','JailbreakMe 3.0','http://jailbreakme.com','','','','No'),
-	(5,'5.0','9A334','http://appldnld.apple.com/iPhone4/041-9618.20111012.Zxb22/iPad2,1_5.0_9A334_Restore.ipsw','iPad2,1_5.0_9A334_Restore.ipsw','No','','','741,493,281','','','','','','No'),
-	(6,'5.0.1','9A405','http://appldnld.apple.com/iPhone4/041-3310.20111109.Cfp76/iPad2,1_5.0.1_9A405_Restore.ipsw','iPad2,1_5.0.1_9A405_Restore.ipsw','Yes','','','758,693,514','Absinthe 0.4','http://greenpois0n.com','','','','Yes');
+	(1,'4.3','8F191','http://appldnld.apple.com/iPhone4/041-0368.20110311.SwtHr/iPad2,1_4.3_8F191_Restore.ipsw','iPad2,1_4.3_8F191_Restore.ipsw','No','','','641,816,040','','','','','No','No'),
+	(2,'4.3.1','8G4','http://appldnld.apple.com/iPhone4/041-0556.20110325.64rfg/iPad2,1_4.3.1_8G4_Restore.ipsw','iPad2,1_4.3.1_8G4_Restore.ipsw','No','','','636,932,640','','','','','No','No'),
+	(3,'4.3.2','8H7','http://appldnld.apple.com/iPhone4/041-0663.20110414.U7bTI/iPad2,1_4.3.2_8H7_Restore.ipsw','iPad2,1_4.3.2_8H7_Restore.ipsw','No','','','637,204,510','','','','','No','No'),
+	(4,'4.3.3','8J2','http://appldnld.apple.com/iPhone4/041-1012.20110503.tmmBc/iPad2,1_4.3.3_8J2_Restore.ipsw','iPad2,1_4.3.3_8J2_Restore.ipsw','Yes','','','637,183,974','JailbreakMe 3.0','http://jailbreakme.com','','','No','No'),
+	(5,'5.0','9A334','http://appldnld.apple.com/iPhone4/041-9618.20111012.Zxb22/iPad2,1_5.0_9A334_Restore.ipsw','iPad2,1_5.0_9A334_Restore.ipsw','No','','','741,493,281','','','','','No','No'),
+	(6,'5.0.1','9A405','http://appldnld.apple.com/iPhone4/041-3310.20111109.Cfp76/iPad2,1_5.0.1_9A405_Restore.ipsw','iPad2,1_5.0.1_9A405_Restore.ipsw','Yes','','','758,693,514','Absinthe 0.4','http://greenpois0n.com','','','No','No'),
+	(7,'5.1','9B176','http://appldnld.apple.com/iOS5/041-1539.20120307.JwD8A/iPad2,1_5.1_9B176_Restore.ipsw','iPad2,1_5.1_9B176_Restore.ipsw','No','','','764,320,555','','','','','No','Yes');
 
 /*!40000 ALTER TABLE `ipad2_wifi` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table ipad2_wifi2
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `ipad2_wifi2`;
+
+CREATE TABLE `ipad2_wifi2` (
+  `id` int(255) NOT NULL auto_increment,
+  `version` varchar(50) NOT NULL,
+  `build` varchar(50) NOT NULL,
+  `url` varchar(500) NOT NULL default '',
+  `name` varchar(500) NOT NULL,
+  `can_jailbreak` varchar(10) NOT NULL,
+  `can_unlock` varchar(10) NOT NULL,
+  `baseband` varchar(50) NOT NULL,
+  `size` varchar(50) NOT NULL,
+  `tool` varchar(50) NOT NULL,
+  `tool_url` varchar(500) NOT NULL default '',
+  `unlock_tool` varchar(50) NOT NULL,
+  `unlock_url` varchar(500) NOT NULL default '',
+  `tethered` varchar(50) NOT NULL,
+  `shsh` varchar(50) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+
+LOCK TABLES `ipad2_wifi2` WRITE;
+/*!40000 ALTER TABLE `ipad2_wifi2` DISABLE KEYS */;
+
+INSERT INTO `ipad2_wifi2` (`id`, `version`, `build`, `url`, `name`, `can_jailbreak`, `can_unlock`, `baseband`, `size`, `tool`, `tool_url`, `unlock_tool`, `unlock_url`, `tethered`, `shsh`)
+VALUES
+	(1,'5.1','9B176','http://appldnld.apple.com/iOS5/041-2052.20120307.5JGht/iPad2,4_5.1_9B176_Restore.ipsw','iPad2,4_5.1_9B176_Restore.ipsw','No','','','764,640,084','','','','','No','Yes');
+
+/*!40000 ALTER TABLE `ipad2_wifi2` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table ipad3_cdma
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `ipad3_cdma`;
+
+CREATE TABLE `ipad3_cdma` (
+  `id` int(255) NOT NULL auto_increment,
+  `version` varchar(50) NOT NULL,
+  `build` varchar(50) NOT NULL,
+  `url` varchar(500) NOT NULL default '',
+  `name` varchar(500) NOT NULL,
+  `can_jailbreak` varchar(10) NOT NULL,
+  `can_unlock` varchar(10) NOT NULL,
+  `baseband` varchar(50) NOT NULL,
+  `size` varchar(50) NOT NULL,
+  `tool` varchar(50) NOT NULL,
+  `tool_url` varchar(500) NOT NULL default '',
+  `unlock_tool` varchar(50) NOT NULL,
+  `unlock_url` varchar(500) NOT NULL default '',
+  `tethered` varchar(50) NOT NULL,
+  `shsh` varchar(50) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+
+LOCK TABLES `ipad3_cdma` WRITE;
+/*!40000 ALTER TABLE `ipad3_cdma` DISABLE KEYS */;
+
+INSERT INTO `ipad3_cdma` (`id`, `version`, `build`, `url`, `name`, `can_jailbreak`, `can_unlock`, `baseband`, `size`, `tool`, `tool_url`, `unlock_tool`, `unlock_url`, `tethered`, `shsh`)
+VALUES
+	(1,'5.1','9B176','http://appldnld.apple.com/iOS5/041-1955.20120307.CQvrt/iPad3,2_5.1_9B176_Restore.ipsw','iPad3,2_5.1_9B176_Restore.ipsw','No','No','1.0.10','1,133,434,898','','','','','No','Yes');
+
+/*!40000 ALTER TABLE `ipad3_cdma` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table ipad3_global
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `ipad3_global`;
+
+CREATE TABLE `ipad3_global` (
+  `id` int(255) NOT NULL auto_increment,
+  `version` varchar(50) NOT NULL,
+  `build` varchar(50) NOT NULL,
+  `url` varchar(500) NOT NULL default '',
+  `name` varchar(500) NOT NULL,
+  `can_jailbreak` varchar(10) NOT NULL,
+  `can_unlock` varchar(10) NOT NULL,
+  `baseband` varchar(50) NOT NULL,
+  `size` varchar(50) NOT NULL,
+  `tool` varchar(50) NOT NULL,
+  `tool_url` varchar(500) NOT NULL default '',
+  `unlock_tool` varchar(50) NOT NULL,
+  `unlock_url` varchar(500) NOT NULL default '',
+  `tethered` varchar(50) NOT NULL,
+  `shsh` varchar(50) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+
+LOCK TABLES `ipad3_global` WRITE;
+/*!40000 ALTER TABLE `ipad3_global` DISABLE KEYS */;
+
+INSERT INTO `ipad3_global` (`id`, `version`, `build`, `url`, `name`, `can_jailbreak`, `can_unlock`, `baseband`, `size`, `tool`, `tool_url`, `unlock_tool`, `unlock_url`, `tethered`, `shsh`)
+VALUES
+	(1,'5.1','9B176','http://appldnld.apple.com/iOS5/041-1956.20120307.jzugh/iPad3,3_5.1_9B176_Restore.ipsw','iPad3,3_5.1_9B176_Restore.ipsw','No','No','1.0.10','1,133,402,209','','','','','No','Yes');
+
+/*!40000 ALTER TABLE `ipad3_global` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table ipad3_wifi
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `ipad3_wifi`;
+
+CREATE TABLE `ipad3_wifi` (
+  `id` int(255) NOT NULL auto_increment,
+  `version` varchar(50) NOT NULL,
+  `build` varchar(50) NOT NULL,
+  `url` varchar(500) NOT NULL default '',
+  `name` varchar(500) NOT NULL,
+  `can_jailbreak` varchar(10) NOT NULL,
+  `can_unlock` varchar(10) NOT NULL,
+  `baseband` varchar(50) NOT NULL,
+  `size` varchar(50) NOT NULL,
+  `tool` varchar(50) NOT NULL,
+  `tool_url` varchar(500) NOT NULL default '',
+  `unlock_tool` varchar(50) NOT NULL,
+  `unlock_url` varchar(500) NOT NULL default '',
+  `tethered` varchar(50) NOT NULL,
+  `shsh` varchar(50) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+
+LOCK TABLES `ipad3_wifi` WRITE;
+/*!40000 ALTER TABLE `ipad3_wifi` DISABLE KEYS */;
+
+INSERT INTO `ipad3_wifi` (`id`, `version`, `build`, `url`, `name`, `can_jailbreak`, `can_unlock`, `baseband`, `size`, `tool`, `tool_url`, `unlock_tool`, `unlock_url`, `tethered`, `shsh`)
+VALUES
+	(1,'5.1','9B176','http://appldnld.apple.com/iOS5/041-1954.20120307.FFase/iPad3,1_5.1_9B176_Restore.ipsw','iPad3,1_5.1_9B176_Restore.ipsw','No','','','1,116,116,546','','','','','No','Yes');
+
+/*!40000 ALTER TABLE `ipad3_wifi` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
@@ -386,7 +575,7 @@ CREATE TABLE `iphone3gs` (
   `tethered` varchar(50) NOT NULL,
   `shsh` varchar(50) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
 LOCK TABLES `iphone3gs` WRITE;
 /*!40000 ALTER TABLE `iphone3gs` DISABLE KEYS */;
@@ -407,7 +596,8 @@ VALUES
 	(12,'4.3.2','8H7','http://appldnld.apple.com/iPhone4/041-0660.20110414.Gwed5/iPhone2,1_4.3.2_8H7_Restore.ipsw','iPhone2,1_4.3.2_8H7_Restore.ipsw','Yes','Yes','05.16.02','440,519,356','redsn0w 0.9.6 rc14','http://blog.iphone-dev.org/','Upgrade to 6.15.00','http://theiphonewiki.com/wiki/index.php?title=6.15.00','No','No'),
 	(13,'4.3.3','8J2','http://appldnld.apple.com/iPhone4/041-1009.20110503.M73Yr/iPhone2,1_4.3.3_8J2_Restore.ipsw','iPhone2,1_4.3.3_8J2_Restore.ipsw','Yes','Yes','05.16.02','440,519,759','JailbreakMe 3.0','http://jailbreakme.com','Upgrade to 6.15.00','http://theiphonewiki.com/wiki/index.php?title=6.15.00','No','No'),
 	(14,'5.0','9A334','http://appldnld.apple.com/iPhone4/041-8356.20111012.SQRDT/iPhone2,1_5.0_9A334_Restore.ipsw','iPhone2,1_5.0_9A334_Restore.ipsw','Yes','Yes','05.16.05','701,195,503','redsn0w','http://blog.iphone-dev.org/','Upgrade to 6.15.00','http://theiphonewiki.com/wiki/index.php?title=6.15.00','Yes','No'),
-	(15,'5.0.1','9A405','http://appldnld.apple.com/iPhone4/041-3307.20111109.5tGhu/iPhone2,1_5.0.1_9A405_Restore.ipsw','iPhone2,1_5.0.1_9A405_Restore.ipsw','Yes','Yes','05.16.05','718,181,968','redsn0w','http://blog.iphone-dev.org/','Upgrade to 6.15.00','http://theiphonewiki.com/wiki/index.php?title=6.15.00','No','Yes');
+	(15,'5.0.1','9A405','http://appldnld.apple.com/iPhone4/041-3307.20111109.5tGhu/iPhone2,1_5.0.1_9A405_Restore.ipsw','iPhone2,1_5.0.1_9A405_Restore.ipsw','Yes','Yes','05.16.05','718,181,968','redsn0w','http://blog.iphone-dev.org/','Upgrade to 6.15.00','http://theiphonewiki.com/wiki/index.php?title=6.15.00','No','No'),
+	(16,'5.1','9B176','http://appldnld.apple.com/iOS5/041-1535.20120307.Jer6N/iPhone2,1_5.1_9B176_Restore.ipsw','iPhone2,1_5.1_9B176_Restore.ipsw','Yes','No','05.16.05','720,402,781','redsn0w','http://blog.iphone-dev.org/','Upgrade to 6.15.00','http://theiphonewiki.com/wiki/index.php?title=6.15.00','Yes','Yes');
 
 /*!40000 ALTER TABLE `iphone3gs` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -435,7 +625,7 @@ CREATE TABLE `iphone4_cdma` (
   `tethered` varchar(50) NOT NULL,
   `shsh` varchar(50) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 LOCK TABLES `iphone4_cdma` WRITE;
 /*!40000 ALTER TABLE `iphone4_cdma` DISABLE KEYS */;
@@ -446,7 +636,8 @@ VALUES
 	(2,'4.2.7','8E303','http://appldnld.apple.com/iPhone4/041-0614.20110414.B47xa/iPhone3,3_4.2.7_8E303_Restore.ipsw','iPhone3,3_4.2.7_8E303_Restore.ipsw','Yes','No','1.0.06','684,508,142','sn0wbreeze 2.6.1','http://ih8sn0w.com','','','No','No'),
 	(3,'4.2.8','8E401','http://appldnld.apple.com/iPhone4/041-1022.20110503.5g8k7/iPhone3,3_4.2.8_8E401_Restore.ipsw','iPhone3,3_4.2.8_8E401_Restore.ipsw','Yes','No','1.0.06','684,508,142','redsn0w 0.9.6 rc16','http://blog.iphone-dev.org/','','','No','No'),
 	(4,'5.0','9A334','http://appldnld.apple.com/iPhone4/041-9743.20111012.vjhfp/iPhone3,3_5.0_9A334_Restore.ipsw','iPhone3,3_5.0_9A334_Restore.ipsw','Yes','No','3.0.03','819,821,067','redsn0w','http://blog.iphone-dev.org/','','','Yes','No'),
-	(5,'5.0.1','9A405','http://appldnld.apple.com/iPhone4/041-3304.20111109.Vgtyh/iPhone3,3_5.0.1_9A405_Restore.ipsw','iPhone3,3_5.0.1_9A405_Restore.ipsw','Yes','No','3.0.03','836,999,205','redsn0w','http://blog.iphone-dev.org/','','','No','Yes');
+	(5,'5.0.1','9A405','http://appldnld.apple.com/iPhone4/041-3304.20111109.Vgtyh/iPhone3,3_5.0.1_9A405_Restore.ipsw','iPhone3,3_5.0.1_9A405_Restore.ipsw','Yes','No','3.0.03','836,999,205','redsn0w','http://blog.iphone-dev.org/','','','No','No'),
+	(6,'5.1','9B176','http://appldnld.apple.com/iOS5/041-1529.20120307.looTW/iPhone3,3_5.1_9B176_Restore.ipsw','iPhone3,3_5.1_9B176_Restore.ipsw','Yes','No','3.0.04','829,786,277','redsn0w','http://blog.iphone-dev.org/','','','Yes','Yes');
 
 /*!40000 ALTER TABLE `iphone4_cdma` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -474,7 +665,7 @@ CREATE TABLE `iphone4_gsm` (
   `tethered` varchar(50) NOT NULL,
   `shsh` varchar(50) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 LOCK TABLES `iphone4_gsm` WRITE;
 /*!40000 ALTER TABLE `iphone4_gsm` DISABLE KEYS */;
@@ -491,7 +682,8 @@ VALUES
 	(8,'4.3.2','8H7','http://appldnld.apple.com/iPhone4/041-0662.20110414.byQ84/iPhone3,1_4.3.2_8H7_Restore.ipsw','iPhone3,1_4.3.2_8H7_Restore.ipsw','Yes','No','04.10.01','698,304,690','redsn0w 0.9.6 rc14','http://blog.iphone-dev.org/','','','No','No'),
 	(9,'4.3.3','8J2','http://appldnld.apple.com/iPhone4/041-1011.20110503.q7fGc/iPhone3,1_4.3.3_8J2_Restore.ipsw','iPhone3,1_4.3.3_8J2_Restore.ipsw','Yes','No','04.10.01','698,558,606','JailbreakMe 3.0','http://jailbreakme.com','','','No','No'),
 	(10,'5.0','9A334','http://appldnld.apple.com/iPhone4/041-8358.20111012.FFc34/iPhone3,1_5.0_9A334_Restore.ipsw','iPhone3,1_5.0_9A334_Restore.ipsw','Yes','No','04.11.08','811,948,143','redsn0w','http://blog.iphone-dev.org/','','','Yes','No'),
-	(11,'5.0.1','9A405','http://appldnld.apple.com/iPhone4/041-3309.20111109.64rtg/iPhone3,1_5.0.1_9A405_Restore.ipsw','iPhone3,1_5.0.1_9A405_Restore.ipsw','Yes','No','04.11.08','829,060,929','redsn0w','http://blog.iphone-dev.org/','','','No','Yes');
+	(11,'5.0.1','9A405','http://appldnld.apple.com/iPhone4/041-3309.20111109.64rtg/iPhone3,1_5.0.1_9A405_Restore.ipsw','iPhone3,1_5.0.1_9A405_Restore.ipsw','Yes','No','04.11.08','829,060,929','redsn0w','http://blog.iphone-dev.org/','','','No','No'),
+	(12,'5.1','9B176','http://appldnld.apple.com/iOS5/041-1537.20120307.EJrm4/iPhone3,1_5.1_9B176_Restore.ipsw','iPhone3,1_5.1_9B176_Restore.ipsw','Yes','No','04.12.01','821,606,151','redsn0w','http://blog.iphone-dev.org/','','','Yes','Yes');
 
 /*!40000 ALTER TABLE `iphone4_gsm` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -519,15 +711,17 @@ CREATE TABLE `iphone4s` (
   `tethered` varchar(50) character set utf8 NOT NULL default '',
   `shsh` varchar(50) character set utf8 NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 LOCK TABLES `iphone4s` WRITE;
 /*!40000 ALTER TABLE `iphone4s` DISABLE KEYS */;
 
 INSERT INTO `iphone4s` (`id`, `version`, `build`, `url`, `name`, `can_jailbreak`, `can_unlock`, `baseband`, `size`, `tool`, `tool_url`, `unlock_tool`, `unlock_url`, `tethered`, `shsh`)
 VALUES
-	(1,'5.0','9A334','http://appldnld.apple.com/iPhone4/041-1317.20111012.UVTgr/iPhone4,1_5.0_9A334_Restore.ipsw','iPhone4,1_5.0_9A334_Restore.ipsw','No','No','1.0.11','835,490,060','','','','','','No'),
-	(2,'5.0.1','9A405','http://appldnld.apple.com/iPhone4/041-3305.20111109.Bghy6/iPhone4,1_5.0.1_9A405_Restore.ipsw','iPhone4,1_5.0.1_9A405_Restore.ipsw','Yes','No','1.0.13','852,471,592','Absinthe','http://greenpois0n.com','','','No','Yes');
+	(1,'5.0','9A334','http://appldnld.apple.com/iPhone4/041-1317.20111012.UVTgr/iPhone4,1_5.0_9A334_Restore.ipsw','iPhone4,1_5.0_9A334_Restore.ipsw','Yes','No','1.0.11','835,490,060','Absinthe','http://greenpois0n.com','','','No','No'),
+	(2,'5.0.1','9A405','http://appldnld.apple.com/iPhone4/041-3305.20111109.Bghy6/iPhone4,1_5.0.1_9A405_Restore.ipsw','iPhone4,1_5.0.1_9A405_Restore.ipsw','Yes','No','1.0.13','852,471,592','Absinthe','http://greenpois0n.com','','','No','No'),
+	(3,'5.0.1','9A406','http://appldnld.apple.com/iPhone4/041-3417.20111215.Slnt4/iPhone4,1_5.0.1_9A406_Restore.ipsw','iPhone4,1_5.0.1_9A406_Restore.ipsw','Yes','No','1.0.14','849,922,173','Absinthe','http://greenpois0n.com','','','No','No'),
+	(4,'5.1','9B179','http://appldnld.apple.com/iOS5/041-1530.20120307.LDDac/iPhone4,1_5.1_9B179_Restore.ipsw','iPhone4,1_5.1_9B179_Restore.ipsw','No','No','2.0.10','841,955,251','','','','','No','Yes');
 
 /*!40000 ALTER TABLE `iphone4s` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -604,7 +798,7 @@ CREATE TABLE `ipod2g` (
   `tethered` varchar(50) NOT NULL,
   `shsh` varchar(50) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 LOCK TABLES `ipod2g` WRITE;
 /*!40000 ALTER TABLE `ipod2g` DISABLE KEYS */;
@@ -615,7 +809,7 @@ VALUES
 	(2,'2.2','5G77a','http://appldnld.apple.com.edgesuite.net/content.info.apple.com/iPod/SBML/osx/061-5358.20081120.Gtghy/iPod2,1_2.2_5G77a_Restore.ipsw','iPod2,1_2.2_5G77a_Restore.ipsw','Yes','','','291,123,491','redsn0w','http://blog.iphone-dev.org/','','','No',''),
 	(3,'2.2.1','5H11a','http://appldnld.apple.com.edgesuite.net/content.info.apple.com/iPhone/061-5863.20090127.rt56K/iPod2,1_2.2.1_5H11a_Restore.ipsw','iPod2,1_2.2.1_5H11a_Restore.ipsw','Yes','','','291,140,244','redsn0w','http://blog.iphone-dev.org/','','','No',''),
 	(4,'3.0','7A341','','','Yes','','','','redsn0w','http://blog.iphone-dev.org/','','','No',''),
-	(5,'3.1.2','7D11','','','Yes','','','','blackra1n','http://www.blackra1n.com/','','','No',''),
+	(5,'3.1.2','7D11','','','Yes','','','','blackra1n','http://blackra1n.com/','','','No',''),
 	(6,'3.1.3','7E18','','','Yes','','','','Star (JailbreakMe)','http://jailbreakme.com','','','No',''),
 	(7,'4.0','8A293','http://appldnld.apple.com.edgesuite.net/content.info.apple.com/iPhone4/061-7435.20100621.tr49t/iPod2,1_4.0_8A293_Restore.ipsw','iPod2,1_4.0_8A293_Restore.ipsw','Yes','','','330,278,777','redsn0w','http://blog.iphone-dev.org/','','','No',''),
 	(8,'4.1','8B117','http://appldnld.apple.com/iPhone4/061-7937.20100908.ghj4f/iPod2,1_4.1_8B117_Restore.ipsw','iPod2,1_4.1_8B117_Restore.ipsw','Yes','','','348,027,174','redsn0w','http://blog.iphone-dev.org/','','','No',''),
@@ -647,7 +841,7 @@ CREATE TABLE `ipod3g` (
   `tethered` varchar(50) NOT NULL,
   `shsh` varchar(50) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 LOCK TABLES `ipod3g` WRITE;
 /*!40000 ALTER TABLE `ipod3g` DISABLE KEYS */;
@@ -665,7 +859,8 @@ VALUES
 	(9,'4.3.2','8H7','http://appldnld.apple.com/iPhone4/041-0667.20110414.95hVL/iPod3,1_4.3.2_8H7_Restore.ipsw','iPod3,1_4.3.2_8H7_Restore.ipsw','Yes','','','429,339,223','redsn0w 0.9.6 rc14','http://blog.iphone-dev.org/','','','No','No'),
 	(10,'4.3.3','8J2','http://appldnld.apple.com/iPhone4/041-1021.20110503.8Lfs1/iPod3,1_4.3.3_8J2_Restore.ipsw','iPod3,1_4.3.3_8J2_Restore.ipsw','Yes','','','429,343,499','JailbreakMe 3.0','http://jailbreakme.com','','','No','No'),
 	(11,'5.0','9A334','http://appldnld.apple.com/iPhone4/061-8360.20111012.New3w/iPod3,1_5.0_9A334_Restore.ipsw','iPod3,1_5.0_9A334_Restore.ipsw','Yes','','','668,193,167','redsn0w','http://blog.iphone-dev.org/','','','Yes','No'),
-	(12,'5.0.1','9A405','http://appldnld.apple.com/iPhone4/041-3314.20111109.Mbgh6/iPod3,1_5.0.1_9A405_Restore.ipsw','iPod3,1_5.0.1_9A405_Restore.ipsw','Yes','','','685,093,259','redsn0w','http://blog.iphone-dev.org/','','','No','Yes');
+	(12,'5.0.1','9A405','http://appldnld.apple.com/iPhone4/041-3314.20111109.Mbgh6/iPod3,1_5.0.1_9A405_Restore.ipsw','iPod3,1_5.0.1_9A405_Restore.ipsw','Yes','','','685,093,259','redsn0w','http://blog.iphone-dev.org/','','','No','No'),
+	(13,'5.1','9B176','http://appldnld.apple.com/iOS5/041-1547.20120307.KerHy/iPod3,1_5.1_9B176_Restore.ipsw','iPod3,1_5.1_9B176_Restore.ipsw','Yes','','','687,571,706','redsn0w','http://blog.iphone-dev.org/','','','Yes','Yes');
 
 /*!40000 ALTER TABLE `ipod3g` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -693,7 +888,7 @@ CREATE TABLE `ipod4g` (
   `tethered` varchar(50) NOT NULL,
   `shsh` varchar(50) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 LOCK TABLES `ipod4g` WRITE;
 /*!40000 ALTER TABLE `ipod4g` DISABLE KEYS */;
@@ -707,7 +902,8 @@ VALUES
 	(5,'4.3.2','8H7','http://appldnld.apple.com/iPhone4/041-0666.20110414.3QvM1/iPod4,1_4.3.2_8H7_Restore.ipsw','iPod4,1_4.3.2_8H7_Restore.ipsw','Yes','','','681,851,983','redsn0w 0.9.6 rc14','http://blog.iphone-dev.org/','','','No','No'),
 	(6,'4.3.3','8J2','http://appldnld.apple.com/iPhone4/041-1015.20110503.d7i57/iPod4,1_4.3.3_8J2_Restore.ipsw','iPod4,1_4.3.3_8J2_Restore.ipsw','Yes','','','681,860,586','JailbreakMe 3.0','http://jailbreakme.com','','','No','No'),
 	(7,'5.0','9A334','http://appldnld.apple.com/iPhone4/061-9622.20111012.Evry3/iPod4,1_5.0_9A334_Restore.ipsw','iPod4,1_5.0_9A334_Restore.ipsw','Yes','','','798,571,862','redsn0w','http://blog.iphone-dev.org/','','','Yes','No'),
-	(8,'5.0.1','9A405','http://appldnld.apple.com/iPhone4/041-3313.20111109.Azxe3/iPod4,1_5.0.1_9A405_Restore.ipsw','iPod4,1_5.0.1_9A405_Restore.ipsw','Yes','','','815,525,980','redsn0w','http://blog.iphone-dev.org/','','','No','Yes');
+	(8,'5.0.1','9A405','http://appldnld.apple.com/iPhone4/041-3313.20111109.Azxe3/iPod4,1_5.0.1_9A405_Restore.ipsw','iPod4,1_5.0.1_9A405_Restore.ipsw','Yes','','','815,525,980','redsn0w','http://blog.iphone-dev.org/','','','No','No'),
+	(9,'5.1','9B176','http://appldnld.apple.com/iOS5/041-1542.20120307.Jyknq/iPod4,1_5.1_9B176_Restore.ipsw','iPod4,1_5.1_9B176_Restore.ipsw','Yes','','','786,432,833','redsn0w','http://blog.iphone-dev.org/','','','Yes','Yes');
 
 /*!40000 ALTER TABLE `ipod4g` ENABLE KEYS */;
 UNLOCK TABLES;

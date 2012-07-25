@@ -55,7 +55,7 @@
       }
     }
     
-    [cmd appendFormat:@" ) values ( ",table];
+    [cmd appendFormat:@" ) values ( ", table];
     
     firstAdd=YES;
     for (NSString *columnName in keys) {

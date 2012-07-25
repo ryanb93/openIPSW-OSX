@@ -37,6 +37,8 @@ NSString * tool_url;
 NSString * unlock_url;
 NSString * ipsw_url;
 NSString * ipswName;
+NSString * chosen_device;
+NSString * chosen_firmware;
 bool tethered;
 bool updateNeeded;
 NSNumber *firmware_version;
@@ -52,10 +54,9 @@ NSTimer * updateTimer;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     [self checkInternet];
-    MysqlConnection *connection = [MysqlConnection connectToHost:sqlHost user:sqlUser password:sqlPass schema:sqlDB flags:MYSQL_DEFAULT_CONNECTION_FLAGS];\
+    MysqlConnection *connection = [MysqlConnection connectToHost:sqlHost user:sqlUser password:sqlPass schema:sqlDB flags:MYSQL_DEFAULT_CONNECTION_FLAGS];
     MysqlFetch *deviceFetch = [MysqlFetch fetchWithCommand:@"SELECT device_name FROM 0_devices" onConnection:connection];
-    for (NSDictionary *userRow in deviceFetch.results)
-    {
+    for (NSDictionary *userRow in deviceFetch.results) {
         NSNumber *device_name = [userRow objectForKey:@"device_name"];
         [deviceBox addItemWithObjectValue:device_name];
     }
@@ -66,11 +67,10 @@ NSTimer * updateTimer;
     [startButton setEnabled:false];
 }
 
-- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
-{
+- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
     if (location != nil) {
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    [fileManager removeItemAtPath:[NSString stringWithFormat:@"%@",[location stringByAppendingPathExtension:@"download"]] error:NULL];
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        [fileManager removeItemAtPath:[NSString stringWithFormat:@"%@",[location stringByAppendingPathExtension:@"download"]] error:NULL];
     }
     return YES;
 }
@@ -91,20 +91,17 @@ NSTimer * updateTimer;
     [infoSize setStringValue:@"X"];
     [firmwareBox removeAllItems];
     firmwareBox.objectValue = NULL;
-    NSString *device = deviceBox.objectValue; 
+    NSString *device = deviceBox.objectValue;
     NSString *selectedDevice = [NSString stringWithFormat:@"SELECT device_table FROM 0_devices WHERE device_name='%@';", device];
-    MysqlConnection *connection = [MysqlConnection connectToHost:sqlHost user:sqlUser password:sqlPass schema:sqlDB flags:MYSQL_DEFAULT_CONNECTION_FLAGS];\
+    MysqlConnection *connection = [MysqlConnection connectToHost:sqlHost user:sqlUser password:sqlPass schema:sqlDB flags:MYSQL_DEFAULT_CONNECTION_FLAGS];
     MysqlFetch *firmwareFetch = [MysqlFetch fetchWithCommand:selectedDevice onConnection:connection];
-        
-    for (NSDictionary *userRow in firmwareFetch.results)
-    {
-         firmware_version = [userRow objectForKey:@"device_table"];        
+    for (NSDictionary *userRow in firmwareFetch.results) {
+        firmware_version = [userRow objectForKey:@"device_table"];
     }
     NSString *selectedDevice2 = [NSString stringWithFormat:@"SELECT CONCAT(version,' (',build,')') FROM %@;", firmware_version];
     MysqlFetch *newFetch = [MysqlFetch fetchWithCommand:selectedDevice2 onConnection:connection];
-    for (NSDictionary *userRow in newFetch.results)
-    {
-        NSNumber *firmware_version2 = [userRow objectForKey:@"CONCAT(version,' (',build,')')"]; 
+    for (NSDictionary *userRow in newFetch.results) {
+        NSNumber *firmware_version2 = [userRow objectForKey:@"CONCAT(version,' (',build,')')"];
         [firmwareBox addItemWithObjectValue:firmware_version2];
     }
     [connection finalize];
@@ -115,22 +112,20 @@ NSTimer * updateTimer;
     ipswName = nil;
     ipsw_url = nil;
     long mID = (firmwareBox.indexOfSelectedItem + 1);
-    NSString *versInfo = [NSString stringWithFormat:@"(SELECT can_jailbreak FROM `%@` WHERE id='%d') UNION ALL (SELECT can_unlock FROM `%@` WHERE id='%d') UNION ALL (SELECT baseband FROM `%@` WHERE id='%d') UNION ALL (SELECT size FROM `%@` WHERE id='%d') UNION ALL (SELECT tool FROM `%@` WHERE id='%d') UNION ALL (SELECT unlock_tool FROM `%@` WHERE id='%d') UNION ALL (SELECT tethered FROM `%@` WHERE id='%d') UNION ALL (SELECT shsh FROM `%@` WHERE id='%d');", firmware_version, mID, firmware_version, mID, firmware_version, mID, firmware_version, mID, firmware_version, mID, firmware_version, mID, firmware_version, mID, firmware_version, mID];
-    NSString *urlInfo = [NSString stringWithFormat:@"(SELECT tool_url FROM `%@` WHERE id='%d') UNION ALL (SELECT unlock_url FROM `%@` WHERE id='%d') UNION ALL (SELECT url FROM `%@` WHERE id='%d') UNION ALL (SELECT name FROM `%@` WHERE id='%d');", firmware_version, mID, firmware_version, mID, firmware_version, mID, firmware_version, mID];
+    NSString *versInfo = [NSString stringWithFormat:@"(SELECT can_jailbreak FROM `%@` WHERE id='%ld') UNION ALL (SELECT can_unlock FROM `%@` WHERE id='%ld') UNION ALL (SELECT baseband FROM `%@` WHERE id='%ld') UNION ALL (SELECT size FROM `%@` WHERE id='%ld') UNION ALL (SELECT tool FROM `%@` WHERE id='%ld') UNION ALL (SELECT unlock_tool FROM `%@` WHERE id='%ld') UNION ALL (SELECT tethered FROM `%@` WHERE id='%ld') UNION ALL (SELECT shsh FROM `%@` WHERE id='%ld');", firmware_version, mID, firmware_version, mID, firmware_version, mID, firmware_version, mID, firmware_version, mID, firmware_version, mID, firmware_version, mID, firmware_version, mID];
+    NSString *urlInfo = [NSString stringWithFormat:@"(SELECT tool_url FROM `%@` WHERE id='%ld') UNION ALL (SELECT unlock_url FROM `%@` WHERE id='%ld') UNION ALL (SELECT url FROM `%@` WHERE id='%ld') UNION ALL (SELECT name FROM `%@` WHERE id='%ld');", firmware_version, mID, firmware_version, mID, firmware_version, mID, firmware_version, mID];
     MysqlConnection *connection = [MysqlConnection connectToHost:sqlHost user:sqlUser password:sqlPass schema:sqlDB flags:MYSQL_DEFAULT_CONNECTION_FLAGS];
     MysqlFetch *infoFetch = [MysqlFetch fetchWithCommand:versInfo onConnection:connection];
     int counter = 0;
-    for (NSDictionary *newRow in infoFetch.results)
-    {
-        NSString *device_name = [newRow objectForKey:@"can_jailbreak"]; 
+    for (NSDictionary *newRow in infoFetch.results) {
+        NSString *device_name = [newRow objectForKey:@"can_jailbreak"];
         data[counter] = [NSString stringWithFormat:@"%@", device_name];
         counter += 1;
     }
     MysqlFetch *urlFetch = [MysqlFetch fetchWithCommand:urlInfo onConnection:connection];
-    for (NSDictionary *newRow in urlFetch.results)
-    {
-        NSString *urlResult = [newRow objectForKey:@"tool_url"]; 
-        data[counter] = [NSString stringWithFormat:@"%@", urlResult ];
+    for (NSDictionary *newRow in urlFetch.results) {
+        NSString *urlResult = [newRow objectForKey:@"tool_url"];
+        data[counter] = [NSString stringWithFormat:@"%@", urlResult];
         counter += 1;
     }
     [connection finalize];
@@ -139,15 +134,13 @@ NSTimer * updateTimer;
     if (tethered == true && [data[0] isEqualToString:@"Yes"]) { [jailbreakResult setStringValue:(@"Yes (Tethered)")]; }
     else if (tethered == false && [data[0] isEqualToString:@"Yes"]) { [jailbreakResult setStringValue:(@"Yes (Untethered)")]; }
     else { [jailbreakResult setStringValue:(data[0])]; }
-        
     if (data[1].length == 0) { [unlockResult setStringValue:NSLocalizedString(@"No", "NO")]; }
-    else { [unlockResult setStringValue:(data[1])]; }  
-    
+    else { [unlockResult setStringValue:(data[1])]; }
     if (data[2].length == 0) { [infoBaseband setStringValue:NSLocalizedString(@"No", "NO")]; }
     else { [infoBaseband setStringValue:(data[2])]; }
     if (data[3].length == 0) { [infoSize setStringValue: @"X"]; }
-    else {   
-        NSString *sizeWithMB = [NSString stringWithFormat:@"%@ MB", [data[3] substringWithRange:NSMakeRange(0, data[3].length - 8 )]];
+    else {
+        NSString *sizeWithMB = [NSString stringWithFormat:@"%@ MB", [data[3] substringWithRange:NSMakeRange(0, data[3].length - 8)]];
         [infoSize setStringValue:(sizeWithMB)];
     }
     if (data[4].length == 0) { [jailbreakTool setTitle:@"X"]; }
@@ -157,12 +150,12 @@ NSTimer * updateTimer;
     if (data[7].length == 0) { [infoSHSH setStringValue:NSLocalizedString(@"X", "NO")]; }
     else { [infoSHSH setStringValue:(data[7])]; }
     if (data[8].length == 0) { [jailbreakTool setStringValue:@"X"]; }
-    else { tool_url = [NSString stringWithString:data[8]]; 
-        [jailbreakTool setToolTip:@"Click to visit the jailbreak tool website."]; 
-    }   
+    else { tool_url = [NSString stringWithString:data[8]];
+        [jailbreakTool setToolTip:@"Click to visit the jailbreak tool website."];
+    }
     if (data[9].length == 0) { [unlockTool setStringValue:@"X"]; }
     else { unlock_url = [NSString stringWithString:data[9]];
-         [unlockTool setToolTip:@"Click to visit the unlock tool website."];
+        [unlockTool setToolTip:@"Click to visit the unlock tool website."];
     }
     if (data[10].length == 0) { ipsw_url = nil; }
     else { ipsw_url = [NSString stringWithString:data[10]]; }
@@ -180,8 +173,8 @@ NSTimer * updateTimer;
 
 - (IBAction)unlockToolButtonPressed:(id)sender {
     if (unlock_url != Nil) {
-    NSWorkspace * ws = [NSWorkspace sharedWorkspace];
-    [ws openURL: [NSURL URLWithString:unlock_url]];
+        NSWorkspace * ws = [NSWorkspace sharedWorkspace];
+        [ws openURL: [NSURL URLWithString:unlock_url]];
     }
 }
 
@@ -216,14 +209,14 @@ NSTimer * updateTimer;
 }
 
 - (id)init {
-	[super init];
-	networkQueue = [[ASINetworkQueue alloc] init];
-	return self;
+    [super init];
+    networkQueue = [[ASINetworkQueue alloc] init];
+    return self;
 }
 
 - (void)dealloc {
-	[networkQueue release];
-	[super dealloc];
+    [networkQueue release];
+    [super dealloc];
 }
 
 - (IBAction)buttonPressed:(id)sender {
@@ -232,8 +225,7 @@ NSTimer * updateTimer;
         [msgBox setMessageText: @"This firmware is unavailable for one of the following reasons:\n\n1. It is not available on Apple's servers.\n2. It is a premium update\n3. There is an error in our database"];
         [msgBox addButtonWithTitle: @"Okay"];
         [msgBox runModal];
-    }
-    else {
+    } else {
         [deviceBox setEnabled:false];
         [firmwareBox setEnabled:false];
         NSSavePanel *spanel = [NSSavePanel savePanel];
@@ -245,50 +237,53 @@ NSTimer * updateTimer;
 
 - (void)didEndSaveSheet:(NSSavePanel *)savePanel returnCode:(int)returnCode conextInfo:(void *)contextInfo {
     if (returnCode == NSOKButton) {
-        location = [NSString stringWithFormat:[savePanel filename]];
+        location = [savePanel filename];
         [self URLFetchWithProgress:self];
-    }
-    else {
+        [deviceBox setEnabled:false];
+        [firmwareBox setEnabled:false];
+    } else {
         [deviceBox setEnabled:true];
         [firmwareBox setEnabled:true];
     }
 }
 
 
-- (IBAction)URLFetchWithProgress:(id)sender {    	
-	[startButton setTitle:@"Cancel"];
-	[startButton setAction:@selector(stopDownloading:)];
+- (IBAction)URLFetchWithProgress:(id)sender {
+    [deviceBox setEnabled:false];
+    [firmwareBox setEnabled:false];
+    [startButton setTitle:@"Cancel"];
+    [startButton setAction:@selector(stopDownloading:)];
     [resumeButton setEnabled:true];
     NSString *tempFile = [location stringByAppendingPathExtension:@"download"];
-	if ([[NSFileManager defaultManager] fileExistsAtPath:tempFile]) {
-		[[NSFileManager defaultManager] removeItemAtPath:tempFile error:nil];
-	}
-	[self resumeURLFetchWithProgress:self];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:tempFile]) {
+        [[NSFileManager defaultManager] removeItemAtPath:tempFile error:nil];
+    }
+    [self resumeURLFetchWithProgress:self];
 }
 
 - (IBAction)resumeURLFetchWithProgress:(id)sender {
-	[resumeButton setTitle:@"Pause"];
-	[resumeButton setAction:@selector(stopURLFetchWithProgress:)];
+    [resumeButton setTitle:@"Pause"];
+    [resumeButton setAction:@selector(stopURLFetchWithProgress:)];
     [bandwidthUsed setHidden:false];
-	[networkQueue reset];
-	[self setBigFetchRequest:[ASIHTTPRequest requestWithURL:[NSURL URLWithString:ipsw_url]]];
-	[[self bigFetchRequest] setDownloadDestinationPath:location];
+    [networkQueue reset];
+    [self setBigFetchRequest:[ASIHTTPRequest requestWithURL:[NSURL URLWithString:ipsw_url]]];
+    [[self bigFetchRequest] setDownloadDestinationPath:location];
     [[self bigFetchRequest] setTemporaryFileDownloadPath:[location stringByAppendingPathExtension:@"download"]];
-	[[self bigFetchRequest] setAllowResumeForFileDownloads:YES];
-	[[self bigFetchRequest] setDelegate:self];
-	[[self bigFetchRequest] setDidFinishSelector:@selector(URLFetchWithProgressComplete:)];
-	[[self bigFetchRequest] setDidFailSelector:@selector(URLFetchWithProgressFailed:)];
-	[[self bigFetchRequest] setDownloadProgressDelegate:progressIndicator];
-	[[self bigFetchRequest] startAsynchronous];
+    [[self bigFetchRequest] setAllowResumeForFileDownloads:YES];
+    [[self bigFetchRequest] setDelegate:self];
+    [[self bigFetchRequest] setDidFinishSelector:@selector(URLFetchWithProgressComplete:)];
+    [[self bigFetchRequest] setDidFailSelector:@selector(URLFetchWithProgressFailed:)];
+    [[self bigFetchRequest] setDownloadProgressDelegate:progressIndicator];
+    [[self bigFetchRequest] startAsynchronous];
     updateTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateBandwidthUsageIndicator) userInfo:nil repeats:YES];
 }
 
 - (IBAction)stopURLFetchWithProgress:(id)sender {
-	[resumeButton setTitle:@"Resume"];
-	[resumeButton setAction:@selector(resumeURLFetchWithProgress:)];
-	[[self bigFetchRequest] cancel];
-	[self setBigFetchRequest:nil];
-	[resumeButton setEnabled:YES];
+    [resumeButton setTitle:@"Resume"];
+    [resumeButton setAction:@selector(resumeURLFetchWithProgress:)];
+    [[self bigFetchRequest] cancel];
+    [self setBigFetchRequest:nil];
+    [resumeButton setEnabled:YES];
     [bandwidthUsed setStringValue:@"Download Paused!"];
     if (updateTimer) {
         [updateTimer invalidate];
@@ -297,21 +292,38 @@ NSTimer * updateTimer;
 }
 
 - (void)URLFetchWithProgressComplete:(ASIHTTPRequest *)request {
+    [deviceBox setEnabled:true];
+    [firmwareBox setEnabled:true];
     [progressIndicator setDoubleValue:0];
     [bandwidthUsed setHidden:true];
     [startButton setTitle:@"Download"];
-	[startButton setAction:@selector(URLFetchWithProgress:)];
+    [startButton setAction:@selector(URLFetchWithProgress:)];
+    location = nil;
+    if (updateTimer) {
+        [updateTimer invalidate];
+        updateTimer = nil;
+    }
+    [window setTitle:@"openIPSW"];
+    if (floor(NSAppKitVersionNumber) >= 1187) {
+        NSUserNotification *notification = [[NSUserNotification alloc] init];
+        [notification setTitle:@"Download Complete!"];
+        [notification setInformativeText:[NSString stringWithFormat:@"%@ for %@ has finished downloading", firmwareBox.objectValue, deviceBox.objectValue]];
+        [notification setSoundName:NSUserNotificationDefaultSoundName];
+        NSUserNotificationCenter *center = [NSUserNotificationCenter defaultUserNotificationCenter];
+        [center scheduleNotification:notification];
+    }
 }
 
 - (void)URLFetchWithProgressFailed:(ASIHTTPRequest *)request {
-	if ([[request error] domain] == NetworkRequestErrorDomain && [[request error] code] == ASIRequestCancelledErrorType) {
-	} 
-    else {
+    if ([[request error] domain] == NetworkRequestErrorDomain && [[request error] code] == ASIRequestCancelledErrorType) {
+    } else {
+        [deviceBox setEnabled:true];
+        [firmwareBox setEnabled:true];
         [progressIndicator setDoubleValue:0];
         [bandwidthUsed setHidden:true];
-		[startButton setTitle:@"Download"];
-		[startButton setAction:@selector(URLFetchWithProgress:)];
-	}
+        [startButton setTitle:@"Download"];
+        [startButton setAction:@selector(URLFetchWithProgress:)];
+    }
 }
 
 - (void)stopDownloading:(ASIHTTPRequest *)request {
@@ -340,18 +352,18 @@ NSTimer * updateTimer;
     NSDictionary *attrs = [man attributesOfItemAtPath: yourPath error: NULL];
     NSString *result = [NSString stringWithFormat:@"%f", (double)[attrs fileSize] / 1000000];
     NSString *fileSize = [NSString stringWithFormat:@"%@",[result substringWithRange:NSMakeRange(0, result.length - 4)]];
-    [bandwidthUsed setStringValue:[NSString stringWithFormat:@"Download Speed: %luKB/s (%@ MB / %@)",[ASIHTTPRequest averageBandwidthUsedPerSecond]/1024, fileSize, infoSize.stringValue ]];
+    [bandwidthUsed setStringValue:[NSString stringWithFormat:@"Download Speed: %luKB/s (%@ MB / %@)",[ASIHTTPRequest averageBandwidthUsedPerSecond]/1024, fileSize, infoSize.stringValue]];
     [man release];
     NSString *title = [NSString stringWithFormat:@"openIPSW (%@%%)", [[NSString stringWithFormat:@"%f",[progressIndicator doubleValue]] substringWithRange:NSMakeRange(2, 2)]];
     [window setTitle:title];
 }
 
 - (IBAction)throttleBandwidth:(id)sender {
-	if ([(NSButton *)sender state] == NSOnState) {
-		[ASIHTTPRequest setMaxBandwidthPerSecond: 51200];
-	} else {
-		[ASIHTTPRequest setMaxBandwidthPerSecond: 0];
-	}
+    if ([(NSButton *)sender state] == NSOnState) {
+        [ASIHTTPRequest setMaxBandwidthPerSecond: 51200];
+    } else {
+        [ASIHTTPRequest setMaxBandwidthPerSecond: 0];
+    }
 }
 
 - (void)alertDidEnd:(NSAlert *)internetAlert returnCode:(int)alertButton contextInfo:(void *)context {
@@ -364,7 +376,7 @@ NSTimer * updateTimer;
     }
 }
 
-- (void)checkInternet {    
+- (void)checkInternet {
     //NSError *error;
     //NSString *URLString = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.google.com"] encoding:NSUTF8StringEncoding error:&error];
     //if(URLString == nil) {

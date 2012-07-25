@@ -17,11 +17,11 @@
     IBOutlet NSComboBox *deviceBox;
     IBOutlet NSComboBox *firmwareBox;
     ASINetworkQueue *networkQueue;
-	IBOutlet NSProgressIndicator *progressIndicator;
-	IBOutlet NSButton *showAccurateProgress;
-	IBOutlet NSButton *startButton;
-	IBOutlet NSButton *resumeButton;
-	IBOutlet NSTextField *bandwidthUsed;
+    IBOutlet NSProgressIndicator *progressIndicator;
+    IBOutlet NSButton *showAccurateProgress;
+    IBOutlet NSButton *startButton;
+    IBOutlet NSButton *resumeButton;
+    IBOutlet NSTextField *bandwidthUsed;
     IBOutlet NSTextField *deviceLabel;
     IBOutlet NSTextField *firmwareLabel;
     IBOutlet NSBox *jailbreakBox;
